@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  /* AxisOps Suite brand palette (from brand flyer: navy + green) */
+  --color-navy-950: #04121c;
+  --color-navy-900: #082334;
+  --color-navy-800: #0d3450;
+  --color-navy-700: #164a6e;
+
+  --color-brand-50: #eefbf3;
+  --color-brand-100: #d6f5e2;
+  --color-brand-200: #b0ebc9;
+  --color-brand-300: #7ddcaa;
+  --color-brand-400: #46c884;
+  --color-brand-500: #12a44c;
+  --color-brand-600: #0d8a40;
+  --color-brand-700: #0b6d35;
+  --color-brand-800: #0d562d;
+  --color-brand-900: #0c4727;
+
+  --color-accent-400: #a3d94c;
+  --color-accent-500: #8cc63f;
+
+  --color-sand-50: #f7f9f7;
+  --color-sand-100: #eef2ee;
+  --color-sand-200: #dde5dd;
+}
+
+body {
+  background: var(--color-sand-50);
+  color: var(--color-navy-900);
+  font-family: var(--font-geist-sans), system-ui, Arial, Helvetica, sans-serif;
+}
+
+/* Reusable listing placeholder tile (no uploaded photos in demo yet) */
+.listing-tile {
+  background-image: radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.35), transparent 45%),
+    linear-gradient(135deg, var(--tile-color, #12a44c) 0%, color-mix(in srgb, var(--tile-color, #12a44c) 55%, #04121c) 100%);
+}
+
+/* ---- Phase 5 polish: skeletons, motion ---- */
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton-shimmer {
+  animation: shimmer 1.4s linear infinite;
+  background: linear-gradient(90deg, var(--color-sand-100) 25%, var(--color-sand-200) 50%, var(--color-sand-100) 75%);
+  background-size: 800px 100%;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Animated home rail: cards stagger in on load */
+.rise-in {
+  animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise-in-1 { animation-delay: 0.05s; }
+.rise-in-2 { animation-delay: 0.1s; }
+.rise-in-3 { animation-delay: 0.15s; }
+.rise-in-4 { animation-delay: 0.2s; }
+.rise-in-5 { animation-delay: 0.25s; }
+.rise-in-6 { animation-delay: 0.3s; }
+.rise-in-7 { animation-delay: 0.35s; }
+.rise-in-8 { animation-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer, .rise-in {
+    animation: none;
+  }
+}

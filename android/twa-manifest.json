@@ -1,0 +1,42 @@
+{
+  "packageId": "com.axisops.suite.marketplace",
+  "host": "localhost:62664",
+  "name": "AxisOps Suite Marketplace",
+  "launcherName": "AxisOps",
+  "display": "standalone",
+  "themeColor": "#04121C",
+  "themeColorDark": "#04121C",
+  "navigationColor": "#04121C",
+  "navigationColorDark": "#04121C",
+  "navigationDividerColor": "#04121C",
+  "navigationDividerColorDark": "#04121C",
+  "backgroundColor": "#04121C",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "http://localhost:62664/icons/icon-512.png",
+  "maskableIconUrl": "http://localhost:62664/icons/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./axisops-upload.jks",
+    "alias": "axisops"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 2,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "minSdkVersion": 21,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "displayOverride": [],
+  "appVersion": "1.0.0"
+}

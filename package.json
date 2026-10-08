@@ -1,0 +1,32 @@
+{
+  "name": "axisops-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:lan": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "start": "next start",
+    "start:lan": "next start -H 0.0.0.0",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "@bubblewrap/cli": "^1.25.0",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^24.19.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "playwright-core": "^1.64.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

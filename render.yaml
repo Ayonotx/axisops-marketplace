@@ -1,0 +1,24 @@
+# Render blueprint — deploy with "New +" → "Blueprint" after pushing to Git,
+# or recreate these settings manually in the Render dashboard.
+services:
+  - type: web
+    name: axisops-marketplace
+    runtime: node
+    plan: starter # paid plan so a persistent disk can be attached (free tier disk is ephemeral)
+    region: frankfurt # closest region to Ghana with persistent disk support
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: PEXELS_API_KEY
+        sync: false # set in the Render dashboard; never commit the real key
+      - key: DB_PATH
+        value: /var/data/axisops.db
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+    disk:
+      name: axisops-data
+      mountPath: /var/data
+      sizeGB: 1
