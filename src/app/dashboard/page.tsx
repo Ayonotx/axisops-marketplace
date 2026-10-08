@@ -27,12 +27,13 @@ export default function DashboardPage() {
   const myListings = getListingsByUser(user.id);
   const incoming = getOffersForSeller(user.id);
   const outgoing = getOffersByBuyer(user.id);
+  const trust = getSellerTrustStats(user.id);
 
   const statCards = [
-    { label: "My listings", value: stats.listings, emoji: "📦" },
-    { label: "Total views", value: stats.views.toLocaleString(), emoji: "👀" },
-    { label: "Favourites earned", value: stats.favorites, emoji: "♥" },
-    { label: "Offers received", value: stats.offers, emoji: "💬" },
+    { label: "My listings", value: stats.listings },
+    { label: "Total views", value: stats.views.toLocaleString() },
+    { label: "Favourites earned", value: stats.favorites },
+    { label: "Offers received", value: stats.offers },
   ];
 
   return (
@@ -47,16 +48,16 @@ export default function DashboardPage() {
           <p className="mt-1 text-sm text-sand-100/70">
             {user.location} ·{" "}
             <span className="text-brand-300">
-              🤝 {getSellerTrustStats(user.id).completedDeals} completed deals ·{" "}
-              {getSellerTrustStats(user.id).reviewCount > 0
-                ? `⭐ ${getSellerTrustStats(user.id).avgRating.toFixed(1)} (${getSellerTrustStats(user.id).reviewCount} escrow reviews)`
+              {trust.completedDeals} completed deals ·{" "}
+              {trust.reviewCount > 0
+                ? `★ ${trust.avgRating.toFixed(1)} (${trust.reviewCount} escrow reviews)`
                 : "No escrow reviews yet"}
             </span>
           </p>
         </div>
         <Link
           href="/sell"
-          className="rounded-xl bg-brand-500 px-6 py-3 font-bold hover:bg-brand-600 transition"
+          className="rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-3 font-bold shadow-lg shadow-brand-950/30 transition hover:brightness-110"
         >
           + Post new ad
         </Link>
@@ -65,9 +66,13 @@ export default function DashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {statCards.map((s) => (
-          <div key={s.label} className="rounded-xl border border-sand-200 bg-white p-4 shadow-sm">
-            <p className="text-2xl">{s.emoji}</p>
-            <p className="mt-1 text-2xl font-extrabold text-navy-900">{s.value}</p>
+          <div
+            key={s.label}
+            className="rounded-2xl border border-sand-200/80 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <p className="mt-1 bg-gradient-to-br from-navy-900 to-navy-700 bg-clip-text text-2xl font-black text-transparent">
+              {s.value}
+            </p>
             <p className="text-xs font-semibold uppercase tracking-wide text-navy-800/60">
               {s.label}
             </p>
@@ -103,12 +108,22 @@ export default function DashboardPage() {
                   key={l.id}
                   className="flex items-center gap-3 rounded-xl border border-sand-200 bg-white p-3 shadow-sm"
                 >
-                  <span
-                    className="listing-tile grid h-14 w-14 shrink-0 place-items-center rounded-lg text-2xl"
-                    style={{ "--tile-color": l.color } as React.CSSProperties}
-                  >
-                    {l.emoji}
-                  </span>
+                  {l.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={l.image_url}
+                      alt=""
+                      className="h-14 w-14 shrink-0 rounded-lg object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span
+                      className="grid h-14 w-14 shrink-0 place-items-center rounded-lg text-2xl"
+                      style={{ background: `linear-gradient(135deg, ${l.color}22, ${l.color}44)` }}
+                    >
+                      {l.emoji}
+                    </span>
+                  )}
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/listing/${l.id}`}

@@ -22,6 +22,15 @@ import TrustBadges from "@/components/TrustBadges";
 import { getWalletBalance } from "@/lib/escrow";
 import { getSellerTrustStats } from "@/lib/reviews";
 
+function ShieldCheck({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
+
 const TYPE_BADGE: Record<string, { label: string; cls: string }> = {
   product: { label: "Product", cls: "bg-brand-100 text-brand-800" },
   service: { label: "Professional Service", cls: "bg-sky-100 text-sky-800" },
@@ -77,7 +86,7 @@ export default async function ListingPage({
         {/* Main */}
         <div className="lg:col-span-2 space-y-5">
           <div className="overflow-hidden rounded-xl border border-sand-200 bg-white shadow-sm">
-            <Gallery photos={photos.map((p) => `/api/photos/${p.filename}`)} emoji={listing.emoji} color={listing.color} />
+            <Gallery photos={photos.map((p) => `/api/photos/${p.filename}`)} emoji={listing.emoji} color={listing.color} fallbackImage={listing.image_url} />
 
             <div className="p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
@@ -90,14 +99,14 @@ export default async function ListingPage({
                       {listing.subcategory}
                     </span>
                     {listing.featured === 1 && (
-                      <span className="rounded-full bg-accent-500 px-2.5 py-0.5 text-[11px] font-bold uppercase text-navy-950">
-                        ⭐ Featured
+                      <span className="rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-navy-950">
+                        ★ Featured
                       </span>
                     )}
                     {listing.status === "active" && (
-                      <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-bold text-brand-800" title="Buy this with AxisOps Escrow — money is held until you confirm delivery">
-                        🛡️ Escrow available
-                      </span>
+                  <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-bold text-brand-800" title="Buy this with AxisOps Escrow — money is held until you confirm delivery">
+                    <ShieldCheck className="inline h-3.5 w-3.5" /> Escrow available
+                  </span>
                     )}
                   </div>
                   <h1 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-navy-900">
@@ -109,9 +118,9 @@ export default async function ListingPage({
                 </div>
               </div>
 
-              <p className="mt-3 text-3xl font-black text-brand-600">
+              <p className="mt-3 flex flex-wrap items-baseline gap-x-3 text-3xl font-black text-brand-600">
                 {formatPrice(listing.price)}
-                <span className="ml-2 align-middle text-sm font-semibold text-navy-800/70">
+                <span className="text-sm font-semibold text-navy-800/70">
                   {listing.negotiable ? "Negotiable" : "Fixed price"}
                 </span>
               </p>
@@ -142,13 +151,13 @@ export default async function ListingPage({
 
               <div className="mt-5 flex flex-wrap gap-2 text-xs">
                 <span className="rounded-lg bg-sand-100 px-3 py-1.5 font-semibold text-navy-800">
-                  📦 Type: {LISTING_TYPE_LABEL[listing.listing_type]}
+                  Type: {LISTING_TYPE_LABEL[listing.listing_type]}
                 </span>
                 <span className="rounded-lg bg-sand-100 px-3 py-1.5 font-semibold text-navy-800">
-                  📍 {listing.region || "Ghana"}
+                  {listing.region || "Ghana"}
                 </span>
                 <span className="rounded-lg bg-sand-100 px-3 py-1.5 font-semibold text-navy-800">
-                  🆔 Listing #{listing.id}
+                  Listing #{listing.id}
                 </span>
               </div>
             </div>

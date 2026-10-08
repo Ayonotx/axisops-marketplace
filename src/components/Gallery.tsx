@@ -6,10 +6,13 @@ export default function Gallery({
   photos,
   emoji,
   color,
+  fallbackImage,
 }: {
   photos: string[];
   emoji: string;
   color: string;
+  /** Stock photo shown when the listing has no uploaded photos. */
+  fallbackImage?: string | null;
 }) {
   const [active, setActive] = useState(0);
   const main = photos[active];
@@ -22,9 +25,15 @@ export default function Gallery({
       >
         {main ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={main} alt="Listing photo" className="absolute inset-0 h-full w-full cursor-zoom-in object-cover transition group-hover:scale-[1.02]" />
+          <img src={main} alt="Listing photo" className="absolute inset-0 h-full w-full cursor-zoom-in object-cover" />
+        ) : fallbackImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={fallbackImage} alt="Listing image" className="absolute inset-0 h-full w-full object-cover" />
         ) : (
-          <div className="listing-tile absolute inset-0 grid place-items-center">
+          <div
+            className="absolute inset-0 grid place-items-center"
+            style={{ background: `linear-gradient(135deg, ${color}22, ${color}44)` }}
+          >
             <span className="text-8xl drop-shadow-lg">{emoji}</span>
           </div>
         )}
